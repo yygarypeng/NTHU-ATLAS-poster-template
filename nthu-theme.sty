@@ -1,0 +1,129 @@
+% National Tsing Hua University poster template amended from the University of Tartu Computer Science Theme for the tikzposter package (author: Joonas Puura, joonas.puura@ut.ee) adapted by Nicholas P Baskerville and Rene Welch (University of Bristol theme).
+% Author: Yuan-Yen Peng yygarypeng@gapp.nthu.edu.tw
+
+\ProvidesPackage{nthu-theme}[01/29/2024 created by Yuan-Yen Peng (NTHU, TW)]
+
+% Required Packages
+\RequirePackage{microtype} % For prettier indent and line changing
+\RequirePackage{anyfontsize} % For any font size to use
+\RequirePackage[export]{adjustbox} % Essential images (figures) packages
+\RequirePackage{xpatch} % For amend the default commends
+
+% -- COLOURS --
+
+% Primary color NTHU
+\definecolor{MainPurple}{HTML}{5C0B60}
+\definecolor{LogoPurple}{HTML}{7F1085}
+\definecolor{DarkPurple}{HTML}{5C0B60}
+\definecolor{Orange}{HTML}{c35413}
+
+% Additional colors NTHU
+\definecolor{Gray}{HTML}{B5B5B7}
+
+% Blue as a percentage
+\colorlet{Purple10}{MainPurple!10} % 10%
+\colorlet{Purple20}{MainPurple!20} % 20%
+\colorlet{Purple30}{MainPurple!30} % 30%
+\colorlet{Purple40}{MainPurple!40} % 40%
+
+% Other colors
+\definecolor{Black}{HTML}{2F2F2F}
+
+% tikzposter color palette
+
+\definecolorpalette{NTHUPalette} {
+    \definecolor{colorOne}{named}{MainPurple}
+    \definecolor{colorTwo}{named}{LogoPurple}
+    \definecolor{colorThree}{named}{DarkPurple}
+}
+
+% tikzposter style
+\definecolorstyle{NTHUStyle} {
+    \usecolorpalette{NTHUPalette}
+}{
+    % background
+    \colorlet{backgroundcolor}{white}
+    \colorlet{framecolor}{white}
+    % title colors
+    \colorlet{titlefgcolor}{Black}
+    \colorlet{titlebgcolor}{white}
+    % block colors
+    \colorlet{blocktitlebgcolor}{colorOne}
+    \colorlet{blocktitlefgcolor}{white}
+    \colorlet{blockbodybgcolor}{white}
+    \colorlet{blockbodyfgcolor}{Black}
+    % innerblock colors
+    \colorlet{innerblocktitlebgcolor}{white}
+    \colorlet{innerblocktitlefgcolor}{Black}
+    \colorlet{innerblockbodybgcolor}{colorTwo}
+    \colorlet{innerblockbodyfgcolor}{Black}
+    % note colors
+    \colorlet{notefgcolor}{Black}
+    \colorlet{notebgcolor}{colorTwo}
+    \colorlet{noteframecolor}{colorTwo}
+}
+
+% -- STYLE --
+
+% background
+\definebackgroundstyle{NTHUBackgroundStyle}{
+    \draw[line width=0pt, color=framecolor, fill=backgroundcolor]
+    (bottomleft) rectangle (topright);
+}
+
+% title
+\definetitlestyle{NTHUTitleStyle}{
+    width=\textwidth, linewidth=7pt, titletotopverticalspace=0in
+}{
+    \begin{scope}[line width=\titlelinewidth,]
+    \draw[color=colorThree,round cap-round cap]
+    (\titleposleft,\titleposbottom)--(\titleposright,\titleposbottom);
+    \end{scope}
+}
+
+% block
+\defineblockstyle{NTHUBlockStyle}{
+    titlewidthscale=1.0, bodywidthscale=1.0, roundedcorners=10
+}{
+    \draw[color=framecolor, fill=blockbodybgcolor,
+    rounded corners=\blockroundedcorners] (blockbody.south west)
+    rectangle (blockbody.north east);
+    \ifBlockHasTitle
+    \draw[color=framecolor, fill=blocktitlebgcolor,
+    rounded corners=\blockroundedcorners] (blocktitle.south west)
+    rectangle (blocktitle.north east);
+    \fi
+}
+\xpatchcmd{\block}{\bf\LARGE\color{blocktitlefgcolor}}{\bf\fontsize{56}{70}\selectfont\color{blocktitlefgcolor}}{}{}
+\xpatchcmd{\block}{\color{blockbodyfgcolor}}{\fontsize{46}{70}\selectfont\color{blockbodyfgcolor}}{}{}
+
+% -- THEME -- 
+
+\definelayouttheme{NTHUTheme}{
+    \usecolorstyle[colorPalette=NTHUPalette]{NTHUStyle}
+    \usebackgroundstyle{NTHUBackgroundStyle}
+    \usetitlestyle{NTHUTitleStyle}
+    \useblockstyle{NTHUBlockStyle}
+    \useinnerblockstyle{Default}
+    \usenotestyle{Default}
+}
+
+% -- TITLE FORMAT --
+
+\makeatletter
+\renewcommand\TP@maketitle{%
+    \hspace*{1em}
+    \begin{minipage}[b]{0.8\linewidth}
+        \color{titlefgcolor}
+        {\bfseries \fontsize{86}{46}\selectfont{\@title} \par}
+        \vspace*{1.5em}
+        {\fontsize{66}{46}\selectfont{\@author} \par}
+        \vspace*{1em}
+        {\fontsize{46}{46}\selectfont{\@institute} \par}
+        \vspace*{0.5em}
+    \end{minipage}%
+    \tikz[remember picture,overlay]\node[anchor=south east,xshift=0.51\linewidth,yshift=0cm,inner sep=0pt] {%
+        \@titlegraphic%
+    };
+}
+\makeatother
