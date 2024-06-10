@@ -1,4 +1,4 @@
-\documentclass[a0paper,portrait,25pt,margin=0.5in,innermargin=-4.5in,blockverticalspace=-0.25in]{tikzposter}
+\documentclass[a0paper,portrait,25pt,margin=0.5in,innermargin=-4.5in,blockverticalspace=0in]{tikzposter}
 
 % essential physics, math and typing package
 \usepackage[greek,english]{babel}
@@ -7,6 +7,7 @@
 
 % other packages
 \usepackage{enumitem}
+\usepackage{qrcode}
 \usepackage{lipsum} % dummy texts
 
 % set theme 
@@ -37,7 +38,7 @@
 \author{\LARGE \textbf{Yuan-Yen Peng}\textsuperscript{1,\dagger}, Siang-Yuan Lin\textsuperscript{1}, Pai-hsien Jennifer Hsu\textsuperscript{1},  Yun-Ju Lu\textsuperscript{1}}
 \institute{\Large \textsuperscript{1}Department of Physics, National Tsing Hua University, Hsinchu, 30013, Taiwan.\\
 \textsuperscript{\dagger}E-mail: \texttt{yuan-yen.peng@cern.ch}}
-\titlegraphic{\includegraphics[height=14cm]{PosterLogo.pdf}}
+\titlegraphic{\includegraphics[height=15cm]{PosterLogo.pdf}}
 
 % begin document
 \begin{document}
@@ -70,14 +71,11 @@
 
 \column{0.5}
 
-\block{Section 3}{
-    \textcolor{MainPurple}{\lipsum[1]}
-
-}
-
 \block{Conclusions}{
     \lipsum[1]
 }
+
+\block{Reference:\quad \textcolor{white}{\centering \qrcode[height=1in]{https://www.ctan.org/tex-archive/macros/latex/contrib/qrcode?lang=en}}}{}
 
 \end{columns}
 \end{document}
